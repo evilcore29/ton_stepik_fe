@@ -1,5 +1,4 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -33,8 +32,11 @@
   }
 }
 
-.card {
-  padding: 2em;
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  text-align: start;
 }
 
 .read-the-docs {
