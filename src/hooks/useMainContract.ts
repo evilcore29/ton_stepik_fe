@@ -48,7 +48,7 @@ export function useMainContract() {
     contract_balance: balance,
     ...contractData,
     sendIncrement: async () => {
-      return mainContract?.sendIncrement(sender, toNano("0.05"), 5);
+      return mainContract?.sendIncrement(sender, toNano("1"), 1);
     },
     sendDeposit: async () => {
       return mainContract?.sendDeposit(sender, toNano("1"));
