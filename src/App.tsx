@@ -81,7 +81,7 @@ function App() {
             explorer
           </a>
           <br />
-          <a href="https://github.com/evilcore29/TONStepik_FE/tree/lesson-5.4" target="_blank">
+          <a href="https://github.com/evilcore29/ton_stepik_fe/tree/lesson-5.4" target="_blank">
             github
           </a>
         </div>
