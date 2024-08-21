@@ -57,7 +57,7 @@ function App() {
           <h3>Contract actions: </h3>
           {connected ? (
             <>
-              <p>Increment contract balance by 1 TON, with 0.05 TON as a comission</p>
+              <p>Increment contract counter by 1</p>
               <button onClick={sendIncrement}>Increment</button>
               <hr />
 
@@ -81,7 +81,7 @@ function App() {
             explorer
           </a>
           <br />
-          <a href="https://github.com/evilcore29/ton_stepik_fe/tree/lesson-5.4" target="_blank">
+          <a href="https://github.com/evilcore29/ton_stepik_fe/" target="_blank">
             github
           </a>
         </div>
