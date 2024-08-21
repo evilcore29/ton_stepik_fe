@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: 18
+          node-version: 16
 
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
@@ -34,14 +34,15 @@ jobs:
   deploy:
     name: Deploy
     needs: build
-    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
           name: production-files
+          path: ./dist
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
