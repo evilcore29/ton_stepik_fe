@@ -3,7 +3,8 @@ import { TonConnectButton } from "@tonconnect/ui-react";
 import { useMainContract } from "./hooks/useMainContract";
 import { useTonConnect } from "./hooks/useTonConnect";
 import { fromNano } from "ton-core";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import WebApp from "@twa-dev/sdk";
 
 function App() {
   const {
@@ -20,17 +21,35 @@ function App() {
   const { tonConnectUI } = useTonConnect();
 
   const [connected, setConnected] = useState<boolean>(false);
+  const [platform, setPlatform] = useState<string | null>(null);
+  const [code, setCode] = useState<string | null>(null);
+
+  const userPlatform = useCallback(() => {
+    setPlatform(WebApp.platform === "unknown" ? null : WebApp.platform);
+  }, []);
+
+  const showPlatformInAlert = useCallback(() => {
+    if (platform) {
+      WebApp.showAlert("WHAT?");
+    }
+  }, [platform]);
+
+  const openScan = useCallback(() => {
+    WebApp.showScanQrPopup({ text: "Scan some QR code" }, (code) => setCode(code));
+  }, []);
 
   useEffect(() => {
+    userPlatform();
     setConnected(tonConnectUI.connected);
 
     tonConnectUI.onStatusChange((status) => {
       setConnected(status !== null);
     });
-  }, [tonConnectUI]);
+  }, [tonConnectUI, userPlatform]);
 
   return (
     <div>
+      <div>{platform}</div>
       <div className="container">
         <div className="button-container">
           <h3>Contract Data:</h3>
@@ -40,11 +59,9 @@ function App() {
           <b>Our contract Address:</b>
           <p>{contract_address}</p>
           <hr />
-
           <b>Our contract Owner:</b>
           <p>{owner_address?.toString()}</p>
           <hr />
-
           {contract_balance && (
             <>
               <b>Our contract Balance:</b>
@@ -52,19 +69,37 @@ function App() {
               <hr />
             </>
           )}
-
           {recent_sender && (
             <>
               <b>Recent sender:</b>
-              <p className="Hint">{recent_sender.toString()}</p>
+              <p>{recent_sender.toString()}</p>
               <hr />
             </>
           )}
-
-          <>
+          <div>
             <b>Counter Value:</b>
             <p>{counter_value ?? "Loading..."}</p>
-          </>
+            <hr />
+          </div>
+          {platform && (
+            <div className="button-container">
+              <b>Show platform</b>
+              <button onClick={showPlatformInAlert}>Show</button>
+              <hr />
+            </div>
+          )}
+
+          <div className="button-container">
+            <b>Show scanner</b>
+            <button onClick={openScan}>Open</button>
+          </div>
+
+          {code && (
+            <div className="button-container">
+              <b>Scanned code</b>
+              <p>{code}</p>
+            </div>
+          )}
         </div>
 
         <h3>Contract actions: </h3>

@@ -558,6 +558,18 @@
     deepmerge "^4.2.2"
     ua-parser-js "^1.0.35"
 
+"@twa-dev/sdk@^7.8.0":
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/@twa-dev/sdk/-/sdk-7.8.0.tgz#a21d3791b836717057fe6045a8e37d1bcfde3c1b"
+  integrity sha512-fVnTSqef6UL2cUU/li8z+KEnswBsvVqA1yjNYBKTy4BRcOs6TVjqHMUgVqn9PJJqyCN4Z0QWyA0y0nprYRVvCw==
+  dependencies:
+    "@twa-dev/types" "^7.8.0"
+
+"@twa-dev/types@^7.8.0":
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/@twa-dev/types/-/types-7.8.0.tgz#1b0d7992913d686ef98447b082891ff45796b637"
+  integrity sha512-nZR1j3Q+YlqLw1WoQXvmi5kdaKSw3C9ChFeycdFKqSnDZb/rqT3qJ3h6wGTyZuxGJNf+JB6bY1pGRrzYfTx3WQ==
+
 "@types/babel__core@^7.20.5":
   version "7.20.5"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.20.5.tgz#3df15f27ba85319caa07ba08d0721889bb39c017"
