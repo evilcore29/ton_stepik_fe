@@ -22,7 +22,7 @@ function App() {
 
   const [connected, setConnected] = useState<boolean>(false);
   const [platform, setPlatform] = useState<string | null>(null);
-  const [code, setCode] = useState<string | null>(null);
+  const [code, setCode] = useState<string | null>("ajnfisbuvbuqweohbvueiwqbfvkahjsbvjkhbsdfvhkubqsoufvhb");
 
   const userPlatform = useCallback(() => {
     setPlatform(WebApp.platform === "unknown" ? null : WebApp.platform);
@@ -30,12 +30,15 @@ function App() {
 
   const showPlatformInAlert = useCallback(() => {
     if (platform) {
-      WebApp.showAlert("WHAT?");
+      WebApp.showAlert(platform);
     }
   }, [platform]);
 
   const openScan = useCallback(() => {
-    WebApp.showScanQrPopup({ text: "Scan some QR code" }, (code) => setCode(code));
+    WebApp.showScanQrPopup({ text: "Scan some QR code" }, (code) => {
+      setCode(code);
+      WebApp.closeScanQrPopup();
+    });
   }, []);
 
   useEffect(() => {
@@ -49,7 +52,6 @@ function App() {
 
   return (
     <div>
-      <div>{platform}</div>
       <div className="container">
         <div className="button-container">
           <h3>Contract Data:</h3>
@@ -82,11 +84,13 @@ function App() {
             <hr />
           </div>
           {platform && (
-            <div className="button-container">
-              <b>Show platform</b>
-              <button onClick={showPlatformInAlert}>Show</button>
+            <>
+              <div className="button-container">
+                <b>Show platform</b>
+                <button onClick={showPlatformInAlert}>Show</button>
+              </div>
               <hr />
-            </div>
+            </>
           )}
 
           <div className="button-container">
@@ -95,7 +99,7 @@ function App() {
           </div>
 
           {code && (
-            <div className="button-container">
+            <div>
               <b>Scanned code</b>
               <p>{code}</p>
             </div>
@@ -132,6 +136,7 @@ function App() {
           <a href="https://github.com/evilcore29/ton_stepik_fe/" target="_blank">
             github
           </a>
+          <div>{platform}</div>
         </div>
       </div>
     </div>
