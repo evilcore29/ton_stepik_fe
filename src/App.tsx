@@ -50,6 +50,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    WebApp.expand();
     userPlatform();
     setConnected(tonConnectUI.connected);
 
