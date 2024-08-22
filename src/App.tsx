@@ -22,7 +22,7 @@ function App() {
 
   const [connected, setConnected] = useState<boolean>(false);
   const [platform, setPlatform] = useState<string | null>(null);
-  const [code, setCode] = useState<string | null>("ajnfisbuvbuqweohbvueiwqbfvkahjsbvjkhbsdfvhkubqsoufvhb");
+  const [code, setCode] = useState<string | null>(null);
 
   const userPlatform = useCallback(() => {
     setPlatform(WebApp.platform === "unknown" ? null : WebApp.platform);
@@ -31,8 +31,13 @@ function App() {
   const showPlatformInAlert = useCallback(() => {
     if (platform) {
       WebApp.showAlert(platform);
+      // WebApp.HapticFeedback
     }
   }, [platform]);
+
+  const showBiometric = useCallback(() => {
+    WebApp.BiometricManager.authenticate({ reason: "Authenticate to show platform" });
+  }, []);
 
   const openScan = useCallback(() => {
     WebApp.showScanQrPopup({ text: "Scan some QR code" }, (code) => {
@@ -78,11 +83,13 @@ function App() {
               <hr />
             </>
           )}
+
           <div>
             <b>Counter Value:</b>
             <p>{counter_value ?? "Loading..."}</p>
             <hr />
           </div>
+
           {platform && (
             <>
               <div className="button-container">
@@ -94,15 +101,24 @@ function App() {
           )}
 
           <div className="button-container">
+            <b>Show Biometric</b>
+            <button onClick={showBiometric}>Biometric</button>
+          </div>
+          <hr />
+
+          <div className="button-container">
             <b>Show scanner</b>
             <button onClick={openScan}>Open</button>
           </div>
 
           {code && (
-            <div>
-              <b>Scanned code</b>
-              <p>{code}</p>
-            </div>
+            <>
+              <hr />
+              <div>
+                <b>Scanned code</b>
+                <p>{code}</p>
+              </div>
+            </>
           )}
         </div>
 
