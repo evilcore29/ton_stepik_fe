@@ -3,6 +3,7 @@ import { TonConnectButton } from "@tonconnect/ui-react";
 import { useMainContract } from "./hooks/useMainContract";
 import { useTonConnect } from "./hooks/useTonConnect";
 import { fromNano } from "ton-core";
+import { useEffect, useState } from "react";
 
 function App() {
   const {
@@ -15,7 +16,18 @@ function App() {
     sendDeposit,
     sendWithdrawal,
   } = useMainContract();
-  const { connected } = useTonConnect();
+
+  const { tonConnectUI } = useTonConnect();
+
+  const [connected, setConnected] = useState<boolean>(false);
+
+  useEffect(() => {
+    setConnected(tonConnectUI.connected);
+
+    tonConnectUI.onStatusChange((status) => {
+      setConnected(status !== null);
+    });
+  }, [tonConnectUI]);
 
   return (
     <div>

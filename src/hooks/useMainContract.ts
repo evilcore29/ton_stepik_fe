@@ -20,7 +20,6 @@ export function useMainContract() {
   const mainContract = useAsyncInitialize(async () => {
     if (!client) return;
     const parsedAddress = Address.parse("EQDAbnsqALKAoQO5uS1qOI8X7OhkeDnv3hZiqg2VAqhPa6xN");
-    console.log("🚀 ~ file: useMainContract.ts:22 ~ mainContract ~ parsedAddress:", parsedAddress.toString());
 
     const contract = new MainContract(parsedAddress);
     return client.open(contract) as OpenedContract<MainContract>;
