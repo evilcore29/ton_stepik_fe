@@ -32,11 +32,48 @@
   }
 }
 
+.data-container {
+  border: 1px solid #494949;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: rgb(42, 42, 42);
+  margin: 15px 0px;
+}
+
+.data-container:first-child {
+  padding-bottom: 0px;
+}
+
+.data-container:nth-child(4) {
+  padding-top: 0px;
+}
+
+p {
+  font-size: 0.9em;
+  word-break: break-all;
+}
+
+hr {
+  background-color: #494949;
+  border: none;
+  height: 1px;
+}
+
+h3 {
+  margin: 0px;
+}
+
 .container {
-  display: grid;
+  /* display: grid; */
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   text-align: start;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .read-the-docs {

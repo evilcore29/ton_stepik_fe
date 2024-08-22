@@ -19,23 +19,24 @@ function App() {
 
   return (
     <div>
-      <TonConnectButton />
-
       <div className="container">
-        <div>
+        <div className="button-container">
           <h3>Contract Data:</h3>
+          <TonConnectButton />
+        </div>
+        <div className="data-container">
           <b>Our contract Address:</b>
-          <div className="Hint">{contract_address}</div>
+          <p>{contract_address}</p>
           <hr />
 
           <b>Our contract Owner:</b>
-          <div className="Hint">{owner_address?.toString()}</div>
+          <p>{owner_address?.toString()}</p>
           <hr />
 
           {contract_balance && (
             <>
               <b>Our contract Balance:</b>
-              <div className="Hint">{fromNano(contract_balance)}</div>
+              <p>{fromNano(contract_balance)}</p>
               <hr />
             </>
           )}
@@ -43,18 +44,19 @@ function App() {
           {recent_sender && (
             <>
               <b>Recent sender:</b>
-              <div className="Hint">{recent_sender.toString()}</div>
+              <p className="Hint">{recent_sender.toString()}</p>
               <hr />
             </>
           )}
 
           <>
             <b>Counter Value:</b>
-            <div>{counter_value ?? "Loading..."}</div>
+            <p>{counter_value ?? "Loading..."}</p>
           </>
         </div>
-        <div>
-          <h3>Contract actions: </h3>
+
+        <h3>Contract actions: </h3>
+        <div className="data-container">
           {connected ? (
             <>
               <p>Increment contract counter by 1</p>
@@ -65,9 +67,8 @@ function App() {
               <button onClick={sendDeposit}>Deposit</button>
               <hr />
 
-              <p>Withdrawal from contract balance by 0.2 TON</p>
+              <p>Withdrawal from contract balance 0.2 TON</p>
               <button onClick={sendWithdrawal}>Withdrawal</button>
-              <hr />
             </>
           ) : (
             <p>Connect wallet to start action</p>
