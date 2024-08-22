@@ -36,7 +36,7 @@ function App() {
   }, [platform]);
 
   const showBiometric = useCallback(() => {
-    WebApp.BiometricManager.authenticate({ reason: "Authenticate to show platform" });
+    WebApp.BiometricManager.requestAccess({ reason: "Authenticate to show platform" });
   }, []);
 
   const openScan = useCallback(() => {
