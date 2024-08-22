@@ -31,12 +31,15 @@ function App() {
   const showPlatformInAlert = useCallback(() => {
     if (platform) {
       WebApp.showAlert(platform);
-      // WebApp.HapticFeedback
     }
   }, [platform]);
 
-  const showBiometric = useCallback(() => {
-    WebApp.BiometricManager.requestAccess({ reason: "Authenticate to show platform" });
+  const softHaptic = useCallback(() => {
+    WebApp.HapticFeedback.impactOccurred("soft");
+  }, []);
+
+  const successHaptic = useCallback(() => {
+    WebApp.HapticFeedback.notificationOccurred("success");
   }, []);
 
   const openScan = useCallback(() => {
@@ -83,13 +86,15 @@ function App() {
               <hr />
             </>
           )}
-
           <div>
             <b>Counter Value:</b>
             <p>{counter_value ?? "Loading..."}</p>
             <hr />
           </div>
+        </div>
 
+        <h3>App actions: </h3>
+        <div className="data-container">
           {platform && (
             <>
               <div className="button-container">
@@ -99,43 +104,51 @@ function App() {
               <hr />
             </>
           )}
+          <div className="button-container">
+            <b>Show scanner</b>
+            <button onClick={openScan}>Start</button>
+          </div>
+          <hr />
+
+          {code && (
+            <div>
+              <b>Scanned code</b>
+              <p>{code}</p>
+            </div>
+          )}
 
           <div className="button-container">
-            <b>Show Biometric</b>
-            <button onClick={showBiometric}>Biometric</button>
+            <b>Soft haptic</b>
+            <button onClick={softHaptic}>Start</button>
           </div>
           <hr />
 
           <div className="button-container">
-            <b>Show scanner</b>
-            <button onClick={openScan}>Open</button>
+            <b>Success haptic</b>
+            <button onClick={successHaptic}>Start</button>
           </div>
-
-          {code && (
-            <>
-              <hr />
-              <div>
-                <b>Scanned code</b>
-                <p>{code}</p>
-              </div>
-            </>
-          )}
         </div>
 
         <h3>Contract actions: </h3>
         <div className="data-container">
           {connected ? (
             <>
-              <p>Increment contract counter by 1</p>
-              <button onClick={sendIncrement}>Increment</button>
+              <div className="button-container">
+                <p>Increment counter by 1</p>
+                <button onClick={sendIncrement}>Start</button>
+              </div>
               <hr />
 
-              <p>Deposit contract balance by 1 TON</p>
-              <button onClick={sendDeposit}>Deposit</button>
+              <div className="button-container">
+                <p>Deposit contract by 1 TON</p>
+                <button onClick={sendDeposit}>Start</button>
+              </div>
               <hr />
 
-              <p>Withdrawal from contract balance 0.2 TON</p>
-              <button onClick={sendWithdrawal}>Withdrawal</button>
+              <div className="button-container">
+                <p>Withdrawal 0.2 TON</p>
+                <button onClick={sendWithdrawal}>Start</button>
+              </div>
             </>
           ) : (
             <p>Connect wallet to start action</p>
